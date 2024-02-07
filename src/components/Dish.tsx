@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,7 +13,7 @@ export default function Dish() {
         <CardTitle>蔥鹽雞胸肉</CardTitle>
       </CardHeader>
       <CardContent>
-        <h2>食材</h2>
+        <p>食材</p>
       </CardContent>
       <CardFooter>
         <p>調料</p>
