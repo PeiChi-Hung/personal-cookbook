@@ -1,5 +1,10 @@
+import Dish from "./components/Dish"
 function App() {
-  return <></>
+  return (
+    <>
+      <Dish />
+    </>
+  )
 }
 
 export default App
