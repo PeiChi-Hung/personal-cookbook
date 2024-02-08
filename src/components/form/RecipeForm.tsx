@@ -47,7 +47,7 @@ export default function RecipeForm({
   })
 
   const { fields: seasoningFields, append: seasoningAppend } = useFieldArray({
-    name: "ingredients",
+    name: "seasonings",
     control: form.control,
   })
 
