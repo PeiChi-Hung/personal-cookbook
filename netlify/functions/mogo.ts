@@ -4,16 +4,18 @@ import type { Context } from "@netlify/functions"
 
 export default async (req: Request, context: Context) => {
   // TODO: replace uri with an env variable
-  const uri = "mongodb://localhost:27017/Recipe"
-  const client = new MongoClient(uri)
+  const uri = process.env.DATABASE_URL
 
-  try {
-    await client.connect()
-    const database = client.db("Recipe")
-    const collection = database.collection("dishes")
-    const result = await collection.find({}).toArray()
-    return Response.json(result)
-  } catch (error) {
-    console.log("Unable to connect to database, reason being", error)
+  if (uri) {
+    const client = new MongoClient(uri)
+    try {
+      await client.connect()
+      const database = client.db("Recipe")
+      const collection = database.collection("dishes")
+      const result = await collection.find({}).toArray()
+      return Response.json(result)
+    } catch (error) {
+      console.log("Unable to connect to database, reason being", error)
+    }
   }
 }

@@ -17,7 +17,7 @@ export default function Dish() {
     },
   })
 
-  console.log(useRecipe.data[0])
+  console.log(useRecipe.data)
 
   return (
     <Card className="w-[350px] m-10">
