@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useFieldArray } from "react-hook-form"
-import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -12,17 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-
-const recipeFormSchema = z.object({
-  name: z.string().min(2, {
-    message: "Dish Name must have at least 1 character",
-  }),
-  ingredients: z.array(z.object({ value: z.string() })),
-  seasonings: z.array(z.object({ value: z.string() })),
-  //   method: z.string().min(10),
-})
-
-type RecipeFormValues = z.infer<typeof recipeFormSchema>
+import { RecipeFormValues, recipeFormSchema } from "@/types/RecipeData"
 
 export default function RecipeForm({
   id,
