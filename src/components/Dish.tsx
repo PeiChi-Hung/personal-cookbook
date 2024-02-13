@@ -13,7 +13,7 @@ export default function Dish() {
   const useRecipe = useQuery({
     queryKey: ["recipes"],
     queryFn: async () => {
-      const res = await axios.get("/.netlify/functions/mogo")
+      const res = await axios.get("/.netlify/functions/readRecipe")
       return res.data
     },
   })
@@ -21,7 +21,7 @@ export default function Dish() {
   if (useRecipe.isLoading) return "Loading"
 
   const recipeArray = useRecipe.data as dataFromBackend[]
-
+  console.log(recipeArray)
   return (
     <div>
       {recipeArray.map((recipe, index) => (
@@ -31,10 +31,14 @@ export default function Dish() {
           </CardHeader>
           <CardContent>
             <p className="font-semibold">食材</p>
-            <p>{recipe.ingredients}</p>
+            {recipe.ingredients.map((ing, index) => (
+              <ul key={index}>{ing.ingredient}</ul>
+            ))}
             <br />
             <p className="font-semibold">調料</p>
-            <p>{recipe.seasonings}</p>
+            {recipe.seasonings.map((sea, index) => (
+              <ul key={index}>{sea.seasoning}</ul>
+            ))}
           </CardContent>
           <CardFooter></CardFooter>
         </Card>

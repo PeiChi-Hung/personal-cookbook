@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { RecipeFormValues, recipeFormSchema } from "@/types/RecipeData"
+import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 export default function RecipeForm({
   id,
@@ -23,9 +25,9 @@ export default function RecipeForm({
   const form = useForm<RecipeFormValues>({
     resolver: zodResolver(recipeFormSchema),
     defaultValues: {
-      name: "",
-      ingredients: [{ value: "" }],
-      seasonings: [{ value: "" }],
+      dish_name: "",
+      ingredients: [{ ingredient: "" }],
+      seasonings: [{ seasoning: "" }],
       //   method: "",
     },
   })
@@ -44,9 +46,18 @@ export default function RecipeForm({
     return id ? updateRecipe(id, recipe) : createRecipe(recipe)
   }
 
+  const createRecipeMutation = useMutation({
+    mutationFn: (recipe: RecipeFormValues) =>
+      axios.post("/.netlify/functions/createRecipe", recipe),
+    onSuccess: () => onClose(),
+  })
+
   function createRecipe(recipe: RecipeFormValues) {
-    console.log("Creating new recipe:", recipe)
-    onClose()
+    try {
+      createRecipeMutation.mutate(recipe)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function updateRecipe(recipe_id: string, recipe: RecipeFormValues) {
@@ -64,7 +75,7 @@ export default function RecipeForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
-          name="name"
+          name="dish_name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -80,7 +91,7 @@ export default function RecipeForm({
             <FormField
               control={form.control}
               key={field.id}
-              name={`ingredients.${index}.value`}
+              name={`ingredients.${index}.ingredient`}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className={cn(index !== 0 && "sr-only")}>
@@ -100,7 +111,7 @@ export default function RecipeForm({
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => ingredientAppend({ value: "" })}
+            onClick={() => ingredientAppend({ ingredient: "" })}
           >
             Add ingredient
           </Button>
@@ -110,7 +121,7 @@ export default function RecipeForm({
             <FormField
               control={form.control}
               key={field.id}
-              name={`seasonings.${index}.value`}
+              name={`seasonings.${index}.seasoning`}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className={cn(index !== 0 && "sr-only")}>
@@ -130,7 +141,7 @@ export default function RecipeForm({
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => seasoningAppend({ value: "" })}
+            onClick={() => seasoningAppend({ seasoning: "" })}
           >
             Add seasoning
           </Button>
