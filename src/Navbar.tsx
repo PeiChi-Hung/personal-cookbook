@@ -10,7 +10,6 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignOutButton,
   UserButton,
 } from "@clerk/clerk-react"
 import { Button } from "./components/ui/button"
