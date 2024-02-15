@@ -1,13 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { dataFromBackend } from "@/types/RecipeData"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
+import Update from "./Update"
 
 export default function Dish() {
   const useRecipe = useQuery({
@@ -21,7 +16,7 @@ export default function Dish() {
   if (useRecipe.isLoading) return "Loading"
 
   const recipeArray = useRecipe.data as dataFromBackend[]
-  console.log(recipeArray)
+
   return (
     <div>
       {recipeArray.map((recipe, index) => (
@@ -40,7 +35,7 @@ export default function Dish() {
               <ul key={index}>{sea.seasoning}</ul>
             ))}
           </CardContent>
-          <CardFooter></CardFooter>
+          <Update recipe_id={recipe._id} />
         </Card>
       ))}
     </div>

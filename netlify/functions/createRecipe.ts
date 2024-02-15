@@ -13,9 +13,8 @@ export default async (req: Request, context: Context) => {
       const collection = database.collection("dishes")
       const recipeObject = JSON.parse(body)
       await collection.insertOne(recipeObject)
-      console.log(body)
     } catch (error) {
-      console.log(error)
+      console.log("Error from creating recipe:", error)
     }
   }
 }

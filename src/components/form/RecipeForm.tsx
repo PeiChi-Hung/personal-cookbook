@@ -11,17 +11,25 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { RecipeFormValues, recipeFormSchema } from "@/types/RecipeData"
+import {
+  RecipeFormValues,
+  dataFromBackend,
+  recipeFormSchema,
+} from "@/types/RecipeData"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 
 export default function RecipeForm({
   id,
+  data,
   onClose,
 }: {
   id?: string
+  data?: dataFromBackend
   onClose: () => void
 }) {
+  const recipe = data
+
   const form = useForm<RecipeFormValues>({
     resolver: zodResolver(recipeFormSchema),
     defaultValues: {
@@ -30,6 +38,7 @@ export default function RecipeForm({
       seasonings: [{ seasoning: "" }],
       //   method: "",
     },
+    values: recipe,
   })
 
   const { fields: ingredientFields, append: ingredientAppend } = useFieldArray({
