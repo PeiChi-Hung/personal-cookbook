@@ -28,7 +28,7 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Edit Recipe</Button>
+        <Button>Edit</Button>
       </DialogTrigger>
       {/* avoid closing dialog from closing when clicking outside */}
       <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>
