@@ -38,7 +38,7 @@ export default function Dish() {
           </CardContent>
           <div className="grid grid-cols-2 space-x-1 p-3">
             <Update recipe_id={recipe._id} />
-            <Delete />
+            <Delete recipe_id={recipe._id} />
           </div>
         </Card>
       ))}

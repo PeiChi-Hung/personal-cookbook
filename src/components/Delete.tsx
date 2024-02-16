@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,8 +11,23 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog"
 import { Button } from "./ui/button"
+import axios from "axios"
 
-export default function Delete() {
+export default function Delete({ recipe_id }: { recipe_id: string }) {
+  const deleteRecipeMutation = useMutation({
+    mutationFn: (recipe_id: string) => {
+      return axios.delete(`/.netlify/functions/deleteRecipe?_id=${recipe_id}`)
+    },
+  })
+
+  function deleteRecipe(recipe_id: string) {
+    try {
+      deleteRecipeMutation.mutate(recipe_id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -26,7 +42,9 @@ export default function Delete() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={() => deleteRecipe(recipe_id)}>
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

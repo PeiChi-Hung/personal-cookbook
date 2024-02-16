@@ -16,12 +16,12 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
     queryKey: ["update_recipe", recipe_id],
     queryFn: async () => {
       const response = await axios.get(
-        `/.netlify/functions/updateRecipe?_id=${recipe_id}`
+        `/.netlify/functions/readSelectedRecipe?_id=${recipe_id}`
       )
       console.log("data is:", response.data)
       return response.data
     },
-    // disable as long as _id is empty
+    // disable as long as recipe_id is empty
     enabled: !!recipe_id,
   })
 
