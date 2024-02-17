@@ -11,14 +11,12 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
   function onSubmit() {
     setOpen(false)
   }
-
   const useRecipe = useQuery({
     queryKey: ["update_recipe", recipe_id],
     queryFn: async () => {
       const response = await axios.get(
         `/.netlify/functions/readSelectedRecipe?_id=${recipe_id}`
       )
-      console.log("data is:", response.data)
       return response.data
     },
     // disable as long as recipe_id is empty
@@ -28,7 +26,7 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Edit</Button>
+        <Button onClick={() => useRecipe.refetch()}>Edit</Button>
       </DialogTrigger>
       {/* avoid closing dialog from closing when clicking outside */}
       <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>

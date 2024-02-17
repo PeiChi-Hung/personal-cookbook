@@ -19,9 +19,9 @@ export default function Dish() {
   const recipeArray = useRecipe.data as dataFromBackend[]
 
   return (
-    <div>
+    <div className="flex flex-row h-[450px] ">
       {recipeArray.map((recipe, index) => (
-        <Card className="w-[350px] m-10" key={index}>
+        <Card className="w-[350px] m-10 relative" key={index}>
           <CardHeader>
             <CardTitle>{recipe.dish_name}</CardTitle>
           </CardHeader>
@@ -36,7 +36,7 @@ export default function Dish() {
               <ul key={index}>{sea.seasoning}</ul>
             ))}
           </CardContent>
-          <div className="grid grid-cols-2 space-x-1 p-3">
+          <div className="grid grid-cols-2 absolute bottom-3 space-x-1 px-3 w-full">
             <Update recipe_id={recipe._id} />
             <Delete recipe_id={recipe._id} />
           </div>
