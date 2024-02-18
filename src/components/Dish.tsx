@@ -35,6 +35,9 @@ export default function Dish() {
             {recipe.seasonings.map((sea, index) => (
               <ul key={index}>{sea.seasoning}</ul>
             ))}
+            <br />
+            <p className="font-semibold">類別</p>
+            {recipe.dish_type}
           </CardContent>
           <div className="grid grid-cols-2 absolute bottom-3 space-x-1 px-3 w-full">
             <Update recipe_id={recipe._id} />

@@ -9,6 +9,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import {
@@ -36,6 +43,7 @@ export default function RecipeForm({
       dish_name: "",
       ingredients: [{ ingredient: "" }],
       seasonings: [{ seasoning: "" }],
+      dish_type: "",
       //   method: "",
     },
     values: recipe,
@@ -164,6 +172,32 @@ export default function RecipeForm({
             Add seasoning
           </Button>
         </div>
+        <FormField
+          control={form.control}
+          name="dish_type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Dish Type</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a cat" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Main dish">Main dish</SelectItem>
+                  <SelectItem value="Dessert">Dessert</SelectItem>
+                  <SelectItem value="Soup">Soup</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
