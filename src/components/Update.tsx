@@ -8,25 +8,27 @@ import axios from "axios"
 
 export default function Update({ recipe_id }: { recipe_id: string }) {
   const [open, setOpen] = useState(false)
+  const [id, setId] = useState("")
   function onSubmit() {
     setOpen(false)
   }
+
   const useRecipe = useQuery({
-    queryKey: ["update_recipe", recipe_id],
+    queryKey: ["update_recipe", id],
     queryFn: async () => {
       const response = await axios.get(
-        `/.netlify/functions/readSelectedRecipe?_id=${recipe_id}`
+        `/.netlify/functions/readSelectedRecipe?_id=${id}`
       )
       return response.data
     },
     // disable as long as recipe_id is empty
-    enabled: !!recipe_id,
+    enabled: !!id,
   })
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button onClick={() => useRecipe.refetch()}>Edit</Button>
+        <Button onClick={() => setId(recipe_id)}>Edit</Button>
       </DialogTrigger>
       {/* avoid closing dialog from closing when clicking outside */}
       <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>

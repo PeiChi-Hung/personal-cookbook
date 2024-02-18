@@ -69,14 +69,23 @@ export default function RecipeForm({
     }
   }
 
+  interface updateRecipeVariables {
+    recipe_id: string
+    recipe: RecipeFormValues
+  }
+
+  const updateRecipeMutation = useMutation({
+    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) =>
+      axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe),
+    onSuccess: () => onClose(),
+  })
+
   function updateRecipe(recipe_id: string, recipe: RecipeFormValues) {
-    console.log(
-      "Updating recipe with recipe id",
-      recipe_id,
-      "with data",
-      recipe
-    )
-    onClose()
+    try {
+      updateRecipeMutation.mutate({ recipe_id, recipe })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
