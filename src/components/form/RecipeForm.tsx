@@ -23,7 +23,7 @@ import {
   dataFromBackend,
   recipeFormSchema,
 } from "@/types/RecipeData"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 
 export default function RecipeForm({
@@ -63,10 +63,16 @@ export default function RecipeForm({
     return id ? updateRecipe(id, recipe) : createRecipe(recipe)
   }
 
+  const queryClient = useQueryClient()
+
   const createRecipeMutation = useMutation({
-    mutationFn: (recipe: RecipeFormValues) =>
-      axios.post("/.netlify/functions/createRecipe", recipe),
-    onSuccess: () => onClose(),
+    mutationFn: (recipe: RecipeFormValues) => {
+      return axios.post("/.netlify/functions/createRecipe", recipe)
+    },
+    onSuccess: () => {
+      onClose()
+      queryClient.invalidateQueries({ queryKey: ["recipes"] })
+    },
   })
 
   function createRecipe(recipe: RecipeFormValues) {
@@ -85,7 +91,9 @@ export default function RecipeForm({
   const updateRecipeMutation = useMutation({
     mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) =>
       axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe),
-    onSuccess: () => onClose(),
+    onSuccess: () => {
+      onClose()
+    },
   })
 
   function updateRecipe(recipe_id: string, recipe: RecipeFormValues) {
@@ -177,7 +185,7 @@ export default function RecipeForm({
           name="dish_type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Dish Type</FormLabel>
+              <FormLabel>Category</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
@@ -185,7 +193,7 @@ export default function RecipeForm({
               >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a cat" />
+                    <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>

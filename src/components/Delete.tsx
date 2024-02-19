@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,10 +14,13 @@ import { Button } from "./ui/button"
 import axios from "axios"
 
 export default function Delete({ recipe_id }: { recipe_id: string }) {
+  const queryClient = useQueryClient()
+
   const deleteRecipeMutation = useMutation({
     mutationFn: (recipe_id: string) => {
       return axios.delete(`/.netlify/functions/deleteRecipe?_id=${recipe_id}`)
     },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["recipes"] }),
   })
 
   function deleteRecipe(recipe_id: string) {
