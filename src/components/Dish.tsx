@@ -14,10 +14,17 @@ export default function Dish() {
     },
   })
 
+  console.log(useRecipe?.data)
   if (useRecipe.isLoading) return "Loading"
 
   const recipeArray = useRecipe.data as dataFromBackend[]
 
+  if (recipeArray.length < 1)
+    return (
+      <p className="font-bold text-xl flex justify-center items-center h-screen">
+        Start by adding some recipe you like!
+      </p>
+    )
   return (
     <div className="flex flex-row">
       {recipeArray.map((recipe, index) => (
