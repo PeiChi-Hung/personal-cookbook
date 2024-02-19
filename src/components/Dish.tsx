@@ -26,17 +26,17 @@ export default function Dish() {
             <CardTitle>{recipe.dish_name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="font-semibold">食材</p>
+            <p className="font-semibold">Ingredients</p>
             {recipe.ingredients.map((ing, index) => (
               <ul key={index}>{ing.ingredient}</ul>
             ))}
             <br />
-            <p className="font-semibold">調料</p>
+            <p className="font-semibold">Seasonings</p>
             {recipe.seasonings.map((sea, index) => (
               <ul key={index}>{sea.seasoning}</ul>
             ))}
             <br />
-            <p className="font-semibold">類別</p>
+            <p className="font-semibold">Category</p>
             {recipe.dish_type}
           </CardContent>
           <div className="grid grid-cols-2 absolute bottom-3 space-x-1 px-3 w-full">
