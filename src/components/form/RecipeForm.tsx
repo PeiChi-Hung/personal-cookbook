@@ -49,12 +49,20 @@ export default function RecipeForm({
     values: recipe,
   })
 
-  const { fields: ingredientFields, append: ingredientAppend } = useFieldArray({
+  const {
+    fields: ingredientFields,
+    append: ingredientAppend,
+    remove: ingredientRemove,
+  } = useFieldArray({
     name: "ingredients",
     control: form.control,
   })
 
-  const { fields: seasoningFields, append: seasoningAppend } = useFieldArray({
+  const {
+    fields: seasoningFields,
+    append: seasoningAppend,
+    remove: seasoningRemove,
+  } = useFieldArray({
     name: "seasonings",
     control: form.control,
   })
@@ -89,8 +97,9 @@ export default function RecipeForm({
   }
 
   const updateRecipeMutation = useMutation({
-    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) =>
-      axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe),
+    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) => {
+      return axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe)
+    },
     onSuccess: () => {
       onClose()
     },
@@ -121,7 +130,7 @@ export default function RecipeForm({
           )}
         />
         <div>
-          {ingredientFields.map((field, index) => (
+          {ingredientFields.map((field, index, array) => (
             <FormField
               control={form.control}
               key={field.id}
@@ -131,10 +140,30 @@ export default function RecipeForm({
                   <FormLabel className={cn(index !== 0 && "sr-only")}>
                     Ingredient
                   </FormLabel>
-
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
+                  <div className="grid grid-cols-3 items-center">
+                    <FormControl
+                      className={
+                        array.length === 1
+                          ? "w-full col-span-3"
+                          : "w-full col-span-2"
+                      }
+                    >
+                      <Input {...field} />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className={
+                        array.length === 1
+                          ? "hidden"
+                          : "align-middle ml-1 block"
+                      }
+                      onClick={() => ingredientRemove(index)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -151,24 +180,42 @@ export default function RecipeForm({
           </Button>
         </div>
         <div>
-          {seasoningFields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`seasonings.${index}.seasoning`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && "sr-only")}>
-                    Seasoning
-                  </FormLabel>
-
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          {seasoningFields.map((field, index, array) => (
+            <div>
+              <FormField
+                control={form.control}
+                key={field.id}
+                name={`seasonings.${index}.seasoning`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={cn(index !== 0 && "sr-only")}>
+                      Seasoning
+                    </FormLabel>
+                    <div className="grid grid-cols-3 items-center">
+                      <FormControl
+                        className={
+                          array.length === 1
+                            ? "w-full col-span-3"
+                            : "w-full col-span-2"
+                        }
+                      >
+                        <Input {...field} />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className={array.length === 1 ? "hidden" : "ml-1 block"}
+                        onClick={() => seasoningRemove(index)}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           ))}
           <Button
             type="button"
