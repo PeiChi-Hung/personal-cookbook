@@ -97,11 +97,17 @@ export default function RecipeForm({
   }
 
   const updateRecipeMutation = useMutation({
-    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) => {
-      return axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe)
-    },
-    onSuccess: () => {
+    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) =>
+      axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe),
+    onSuccess: (_data, variables) => {
       onClose()
+      // queryClient.setQueryData(["recipes", variables.recipe_id], data)
+      queryClient.invalidateQueries({
+        queryKey: ["recipes"],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["selected_recipe", variables.recipe_id],
+      })
     },
   })
 

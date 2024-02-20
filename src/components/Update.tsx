@@ -14,7 +14,7 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
   }
 
   const useRecipe = useQuery({
-    queryKey: ["update_recipe", id],
+    queryKey: ["selected_recipe", id],
     queryFn: async () => {
       const response = await axios.get(
         `/.netlify/functions/readSelectedRecipe?_id=${id}`

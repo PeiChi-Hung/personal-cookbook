@@ -14,7 +14,6 @@ export default function Dish() {
     },
   })
 
-  console.log(useRecipe?.data)
   if (useRecipe.isLoading) return "Loading"
 
   const recipeArray = useRecipe.data as dataFromBackend[]
