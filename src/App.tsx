@@ -1,5 +1,6 @@
 import { SignedIn, SignedOut } from "@clerk/clerk-react"
 import Dish from "./components/Dish"
+import Shuffle from "./components/Shuffle"
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <SignedOut>Sign in to build your personal cookbook!</SignedOut>
       <SignedIn>
         <Dish />
+        <Shuffle />
       </SignedIn>
     </div>
   )
