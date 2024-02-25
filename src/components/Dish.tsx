@@ -25,9 +25,9 @@ export default function Dish() {
       </p>
     )
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row gap-5">
       {recipeArray.map((recipe, index) => (
-        <Card className="w-[350px] m-10" key={index}>
+        <Card className="w-[350px]" key={index}>
           <CardHeader>
             <CardTitle>{recipe.dish_name}</CardTitle>
           </CardHeader>
