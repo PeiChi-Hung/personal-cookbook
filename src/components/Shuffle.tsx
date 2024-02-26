@@ -19,7 +19,7 @@ export default function Shuffle() {
   }
   return (
     <div className="flex flex-col items-center justify-center pt-10">
-      {randomRecipe.length <= 1 ? (
+      {randomRecipe.length == 0 ? (
         <p className="text-xl">
           Not sure what to eat? Let the computer pick one for you!
         </p>
