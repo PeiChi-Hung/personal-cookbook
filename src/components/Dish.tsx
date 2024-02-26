@@ -20,12 +20,12 @@ export default function Dish() {
 
   if (recipeArray.length < 1)
     return (
-      <p className="font-bold text-xl flex justify-center items-center h-screen">
+      <p className="font-bold text-xl flex md:justify-center md:items-center h-screen">
         Start by adding some recipe you like!
       </p>
     )
   return (
-    <div className="flex flex-row gap-5">
+    <div className="flex flex-row flex-wrap gap-5">
       {recipeArray.map((recipe, index) => (
         <Card className="w-[350px]" key={index}>
           <CardHeader>

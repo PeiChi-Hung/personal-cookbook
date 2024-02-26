@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <Navbar />
-        <main className="container overflow-x-hidden lg:px-28">
+        <main className="overflow-x-hidden lg:px-28">
           <App />
         </main>
       </ClerkProvider>

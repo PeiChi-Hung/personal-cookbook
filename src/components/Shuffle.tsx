@@ -20,7 +20,9 @@ export default function Shuffle() {
   return (
     <div className="flex flex-col items-center justify-center pt-10">
       {randomRecipe.length <= 1 ? (
-        <p> Not sure what to eat? Let the computer pick one for you!</p>
+        <p className="text-xl">
+          Not sure what to eat? Let the computer pick one for you!
+        </p>
       ) : (
         <div className="mb-4">
           {randomRecipe.map((recipe: dataFromBackend) => (
@@ -32,7 +34,7 @@ export default function Shuffle() {
           ))}
         </div>
       )}
-      <Button className="px-10" onClick={handleShuffle}>
+      <Button className="px-10 mt-5" onClick={handleShuffle}>
         Shuffle
       </Button>
     </div>
