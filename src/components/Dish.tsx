@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import Update from "./Update"
 import Delete from "./Delete"
+import { useUser } from "@clerk/clerk-react"
 
 export default function Dish() {
+  const { user } = useUser()
+  const user_id = user?.id as string
   const useRecipe = useQuery({
-    queryKey: ["recipes"],
+    queryKey: ["recipes", user_id],
     queryFn: async () => {
-      const res = await axios.get("/.netlify/functions/readRecipe")
+      const res = await axios.get(`/api/readRecipe/${user_id}`)
       return res.data
     },
   })

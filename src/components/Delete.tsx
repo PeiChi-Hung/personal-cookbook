@@ -12,13 +12,16 @@ import {
 } from "./ui/alert-dialog"
 import { Button } from "./ui/button"
 import axios from "axios"
+import { useUser } from "@clerk/clerk-react"
 
 export default function Delete({ recipe_id }: { recipe_id: string }) {
+  const { user } = useUser()
+  const user_id = user?.id as string
   const queryClient = useQueryClient()
 
   const deleteRecipeMutation = useMutation({
     mutationFn: (recipe_id: string) => {
-      return axios.delete(`/.netlify/functions/deleteRecipe?_id=${recipe_id}`)
+      return axios.delete(`/api/deleteRecipe/${user_id}?_id=${recipe_id}`)
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["recipes"] }),
   })

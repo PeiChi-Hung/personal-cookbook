@@ -25,17 +25,20 @@ import {
 } from "@/types/RecipeData"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
+import { useUser } from "@clerk/clerk-react"
 
 export default function RecipeForm({
-  id,
+  recipe_id,
   data,
   onClose,
 }: {
-  id?: string
+  recipe_id?: string
   data?: dataFromBackend
   onClose: () => void
 }) {
   const recipe = data
+  const { user } = useUser()
+  const user_id = user?.id as string
 
   const form = useForm<RecipeFormValues>({
     resolver: zodResolver(recipeFormSchema),
@@ -68,14 +71,21 @@ export default function RecipeForm({
   })
 
   function onSubmit(recipe: RecipeFormValues) {
-    return id ? updateRecipe(id, recipe) : createRecipe(recipe)
+    return recipe_id
+      ? updateRecipe(user_id, recipe_id, recipe)
+      : createRecipe(user_id, recipe)
   }
 
   const queryClient = useQueryClient()
 
+  interface createRecipeVariables {
+    user_id: string
+    recipe: RecipeFormValues
+  }
+
   const createRecipeMutation = useMutation({
-    mutationFn: (recipe: RecipeFormValues) => {
-      return axios.post("/.netlify/functions/createRecipe", recipe)
+    mutationFn: ({ user_id, recipe }: createRecipeVariables) => {
+      return axios.post(`/api/createRecipe/${user_id}`, recipe)
     },
     onSuccess: () => {
       onClose()
@@ -83,22 +93,23 @@ export default function RecipeForm({
     },
   })
 
-  function createRecipe(recipe: RecipeFormValues) {
+  function createRecipe(user_id: string, recipe: RecipeFormValues) {
     try {
-      createRecipeMutation.mutate(recipe)
+      createRecipeMutation.mutate({ user_id, recipe })
     } catch (error) {
       console.log(error)
     }
   }
 
   interface updateRecipeVariables {
+    user_id: string
     recipe_id: string
     recipe: RecipeFormValues
   }
 
   const updateRecipeMutation = useMutation({
-    mutationFn: ({ recipe_id, recipe }: updateRecipeVariables) =>
-      axios.put(`/.netlify/functions/updateRecipe/${recipe_id}`, recipe),
+    mutationFn: ({ user_id, recipe_id, recipe }: updateRecipeVariables) =>
+      axios.put(`/api/updateRecipe/${user_id}/${recipe_id}`, recipe),
     onSuccess: (_data, variables) => {
       onClose()
       // queryClient.setQueryData(["recipes", variables.recipe_id], data)
@@ -111,9 +122,13 @@ export default function RecipeForm({
     },
   })
 
-  function updateRecipe(recipe_id: string, recipe: RecipeFormValues) {
+  function updateRecipe(
+    user_id: string,
+    recipe_id: string,
+    recipe: RecipeFormValues
+  ) {
     try {
-      updateRecipeMutation.mutate({ recipe_id, recipe })
+      updateRecipeMutation.mutate({ user_id, recipe_id, recipe })
     } catch (error) {
       console.log(error)
     }
@@ -187,7 +202,7 @@ export default function RecipeForm({
         </div>
         <div>
           {seasoningFields.map((field, index, array) => (
-            <div>
+            <div key={index}>
               <FormField
                 control={form.control}
                 key={field.id}

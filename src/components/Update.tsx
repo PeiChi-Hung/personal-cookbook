@@ -5,6 +5,7 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
+import { useUser } from "@clerk/clerk-react"
 
 export default function Update({ recipe_id }: { recipe_id: string }) {
   const [open, setOpen] = useState(false)
@@ -13,11 +14,14 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
     setOpen(false)
   }
 
+  const { user } = useUser()
+  const user_id = user?.id as string
+
   const useRecipe = useQuery({
     queryKey: ["selected_recipe", id],
     queryFn: async () => {
       const response = await axios.get(
-        `/.netlify/functions/readSelectedRecipe?_id=${id}`
+        `/api/readSelectedRecipe/${user_id}?_id=${id}`
       )
       return response.data
     },
@@ -33,7 +37,11 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
       {/* avoid closing dialog from closing when clicking outside */}
       <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>
         <DialogTitle>Edit the current recipe</DialogTitle>
-        <RecipeForm onClose={onSubmit} id={recipe_id} data={useRecipe.data} />
+        <RecipeForm
+          onClose={onSubmit}
+          recipe_id={recipe_id}
+          data={useRecipe.data}
+        />
       </DialogContent>
     </Dialog>
   )
