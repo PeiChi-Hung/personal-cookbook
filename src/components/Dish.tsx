@@ -21,9 +21,9 @@ export default function Dish() {
 
   const recipeArray = useRecipe.data as dataFromBackend[]
 
-  if (recipeArray.length < 1)
+  if (recipeArray.length == 0)
     return (
-      <p className="font-bold text-xl flex md:justify-center md:items-center h-screen">
+      <p className="font-bold text-xl flex justify-center items-center h-screen">
         Start by adding some recipe you like!
       </p>
     )

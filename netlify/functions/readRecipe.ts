@@ -16,9 +16,8 @@ export default async (req: Request, context: Context) => {
         const result = await collection.find({}).toArray()
         return Response.json(result)
       }
-      const newCollection = await database.createCollection(user_id)
-      const result = await newCollection.find({}).toArray()
-      return Response.json(result)
+      await database.createCollection(user_id)
+      return Response.json([])
     } catch (error) {
       console.log("Unable to connect to database, reason being", error)
     }
