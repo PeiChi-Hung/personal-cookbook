@@ -9,14 +9,12 @@ export default async (req: Request, context: Context) => {
   if (uri) {
     const client = new MongoClient(uri)
     try {
-      await client.connect()
-      const database = client.db("Recipe")
-      const collection = database.collection(user_id)
+      const collection = client.db("recipe").collection(user_id)
       if (collection) {
         const result = await collection.find({}).toArray()
         return Response.json(result)
       }
-      await database.createCollection(user_id)
+      await client.db("recipe").createCollection(user_id)
       return Response.json([])
     } catch (error) {
       console.log("Unable to connect to database, reason being", error)

@@ -28,6 +28,7 @@
     "follow-redirects": "^1.15.5",
     "lucide-react": "^0.323.0",
     "mongodb": "^6.3.0",
+    "mongoose": "^8.2.0",
     "netlify-cli": "^17.16.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -10,7 +10,7 @@ export default function Dish() {
   const { user } = useUser()
   const user_id = user?.id as string
   const useRecipe = useQuery({
-    queryKey: ["recipes", user_id],
+    queryKey: ["recipes"],
     queryFn: async () => {
       const res = await axios.get(`/api/readRecipe/${user_id}`)
       return res.data

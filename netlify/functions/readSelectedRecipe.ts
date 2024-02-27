@@ -9,16 +9,14 @@ export default async (req: Request, context: Context) => {
   if (uri) {
     const client = new MongoClient(uri)
     try {
-      await client.connect()
-      const database = client.db("Recipe")
-      const collection = database.collection(user_id)
+      const collection = client.db("recipe").collection(user_id)
       if (collection) {
         const recipe = await collection.findOne({
           _id: new ObjectId(searchParams),
         })
         return Response.json(recipe)
       }
-      const newCollection = await database.createCollection(user_id)
+      const newCollection = await client.db("recipe").createCollection(user_id)
       const recipe = await newCollection.findOne({
         _id: new ObjectId(searchParams),
       })

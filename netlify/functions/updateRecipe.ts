@@ -11,14 +11,12 @@ export default async (req: Request, context: Context) => {
   if (uri) {
     const client = new MongoClient(uri)
     try {
-      await client.connect()
-      const database = client.db("Recipe")
-      const collection = database.collection(user_id)
+      const collection = client.db("recipe").collection(user_id)
       if (collection) {
         const updatedRecipe = JSON.parse(body)
         await collection.replaceOne({ _id: new ObjectId(id) }, updatedRecipe)
       }
-      const newCollection = await database.createCollection(user_id)
+      const newCollection = await client.db("recipe").createCollection(user_id)
       const updatedRecipe = JSON.parse(body)
       await newCollection.replaceOne({ _id: new ObjectId(id) }, updatedRecipe)
     } catch (error) {
