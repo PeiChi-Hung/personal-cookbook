@@ -15,8 +15,6 @@ export default async (req: Request, context: Context) => {
       if (collection) {
         await collection.insertOne(recipeObject)
       }
-      const newCollection = await client.db("recipe").createCollection(user_id)
-      await newCollection.insertOne(recipeObject)
     } catch (error) {
       console.log("Error from creating recipe:", error)
     }

@@ -35,7 +35,10 @@ export default function Update({ recipe_id }: { recipe_id: string }) {
         <Button onClick={() => setId(recipe_id)}>Edit</Button>
       </DialogTrigger>
       {/* avoid closing dialog from closing when clicking outside */}
-      <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>
+      <DialogContent
+        className="md:max-w-screen-md overflow-y-scroll md:max-h-screen h-4/5"
+        onPointerDownOutside={(e) => e.preventDefault()}
+      >
         <DialogTitle>Edit the current recipe</DialogTitle>
         <RecipeForm
           onClose={onSubmit}

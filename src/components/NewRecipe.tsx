@@ -15,7 +15,10 @@ export default function NewRecipe() {
         <Button>Add Recipe</Button>
       </DialogTrigger>
       {/* avoid closing dialog from closing when clicking outside */}
-      <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>
+      <DialogContent
+        className="md:max-w-screen-md overflow-y-scroll md:max-h-screen h-4/5"
+        onPointerDownOutside={(e) => e.preventDefault()}
+      >
         <DialogTitle>Create a new recipe</DialogTitle>
         <RecipeForm onClose={onSubmit} />
       </DialogContent>

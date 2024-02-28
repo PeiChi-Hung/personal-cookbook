@@ -30,7 +30,7 @@ export default function Dish() {
   return (
     <div className="flex flex-row flex-wrap gap-5">
       {recipeArray.map((recipe, index) => (
-        <Card className="w-[350px]" key={index}>
+        <Card className="w-[400px]" key={index}>
           <CardHeader>
             <CardTitle>{recipe.dish_name}</CardTitle>
           </CardHeader>
@@ -41,12 +41,17 @@ export default function Dish() {
             ))}
             <br />
             <p className="font-semibold">Seasonings</p>
-            {recipe.seasonings.map((sea, index) => (
-              <ul key={index}>{sea.seasoning}</ul>
+            {recipe.marinade_seasonings.map((sea, index) => (
+              <ul key={index}>{sea.marinade}</ul>
             ))}
             <br />
             <p className="font-semibold">Category</p>
-            {recipe.dish_type}
+            {recipe.sauce_seasonings.map((sea, index) => (
+              <ul key={index}>{sea.sauce}</ul>
+            ))}
+            <br />
+            <p className="font-semibold">Method Steps</p>
+            {recipe.method}
           </CardContent>
           <div className="grid grid-cols-2 p-3 space-x-1 w-full">
             <Update recipe_id={recipe._id} />

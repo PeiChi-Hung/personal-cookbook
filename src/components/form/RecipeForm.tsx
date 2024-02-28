@@ -20,6 +20,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useUser } from "@clerk/clerk-react"
 import { Textarea } from "../ui/textarea"
+import { Separator } from "../ui/separator"
 
 export default function RecipeForm({
   recipe_id,
@@ -39,9 +40,9 @@ export default function RecipeForm({
     defaultValues: {
       dish_name: "",
       ingredients: [{ ingredient: "" }],
-      seasonings: [{ seasoning: "" }],
+      marinade_seasonings: [{ marinade: "" }],
+      sauce_seasonings: [{ sauce: "" }],
       method: "",
-      //   method: "",
     },
     values: recipe,
   })
@@ -56,11 +57,20 @@ export default function RecipeForm({
   })
 
   const {
-    fields: seasoningFields,
-    append: seasoningAppend,
-    remove: seasoningRemove,
+    fields: marinadeFields,
+    append: marinadeAppend,
+    remove: marinadeRemove,
   } = useFieldArray({
-    name: "seasonings",
+    name: "marinade_seasonings",
+    control: form.control,
+  })
+
+  const {
+    fields: sauceFields,
+    append: sauceAppend,
+    remove: sauceRemove,
+  } = useFieldArray({
+    name: "sauce_seasonings",
     control: form.control,
   })
 
@@ -89,6 +99,7 @@ export default function RecipeForm({
 
   function createRecipe(user_id: string, recipe: RecipeFormValues) {
     try {
+      console.log("creating")
       createRecipeMutation.mutate({ user_id, recipe })
     } catch (error) {
       console.log(error)
@@ -194,53 +205,109 @@ export default function RecipeForm({
             Add ingredient
           </Button>
         </div>
-        <div>
-          {seasoningFields.map((field, index, array) => (
-            <div key={index}>
-              <FormField
-                control={form.control}
-                key={field.id}
-                name={`seasonings.${index}.seasoning`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={cn(index !== 0 && "sr-only")}>
-                      Seasoning
-                    </FormLabel>
-                    <div className="grid grid-cols-3 items-center">
-                      <FormControl
-                        className={
-                          array.length === 1
-                            ? "w-full col-span-3"
-                            : "w-full col-span-2"
-                        }
-                      >
-                        <Input {...field} />
-                      </FormControl>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className={array.length === 1 ? "hidden" : "ml-1 block"}
-                        onClick={() => seasoningRemove(index)}
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={() => seasoningAppend({ seasoning: "" })}
-          >
-            Add seasoning
-          </Button>
+        <Separator />
+        <p>Seasonings</p>
+        <div className="space-y-4">
+          <div>
+            {marinadeFields.map((field, index, array) => (
+              <div key={index}>
+                <FormField
+                  control={form.control}
+                  key={field.id}
+                  name={`marinade_seasonings.${index}.marinade`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={cn(index !== 0 && "sr-only")}>
+                        Seasoning for Marinade
+                      </FormLabel>
+                      <div className="grid grid-cols-3 items-center">
+                        <FormControl
+                          className={
+                            array.length === 1
+                              ? "w-full col-span-3"
+                              : "w-full col-span-2"
+                          }
+                        >
+                          <Input {...field} />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className={
+                            array.length === 1 ? "hidden" : "ml-1 block"
+                          }
+                          onClick={() => marinadeRemove(index)}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-2"
+              onClick={() => marinadeAppend({ marinade: "" })}
+            >
+              Add seasoning
+            </Button>
+          </div>
+          <div>
+            {sauceFields.map((field, index, array) => (
+              <div key={index}>
+                <FormField
+                  control={form.control}
+                  key={field.id}
+                  name={`sauce_seasonings.${index}.sauce`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={cn(index !== 0 && "sr-only")}>
+                        Seasoning for sauce
+                      </FormLabel>
+                      <div className="grid grid-cols-3 items-center">
+                        <FormControl
+                          className={
+                            array.length === 1
+                              ? "w-full col-span-3"
+                              : "w-full col-span-2"
+                          }
+                        >
+                          <Input {...field} />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className={
+                            array.length === 1 ? "hidden" : "ml-1 block"
+                          }
+                          onClick={() => sauceRemove(index)}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-2"
+              onClick={() => sauceAppend({ sauce: "" })}
+            >
+              Add seasoning
+            </Button>
+          </div>
         </div>
         <FormField
           control={form.control}
