@@ -99,7 +99,6 @@ export default function RecipeForm({
 
   function createRecipe(user_id: string, recipe: RecipeFormValues) {
     try {
-      console.log("creating")
       createRecipeMutation.mutate({ user_id, recipe })
     } catch (error) {
       console.log(error)

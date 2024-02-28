@@ -20,6 +20,7 @@ export default function Shuffle() {
     })
     setRandomRecipe(data)
   }
+
   if (randomRecipe.length > 0)
     return (
       <div className="flex flex-col items-center justify-center pt-10">
@@ -37,14 +38,16 @@ export default function Shuffle() {
         </div>
       </div>
     )
-  return (
-    <div className="flex flex-col items-center justify-center pt-10">
-      <p className="text-xl">
-        Not sure what to eat? Let the computer pick one for you!
-      </p>
-      <Button className="px-10 mt-5" onClick={handleShuffle}>
-        Shuffle
-      </Button>
-    </div>
-  )
+
+  if (randomRecipe.length > 2)
+    return (
+      <div className="flex flex-col items-center justify-center pt-10">
+        <p className="text-xl">
+          Not sure what to eat? Let the computer pick one for you!
+        </p>
+        <Button className="px-10 mt-5" onClick={handleShuffle}>
+          Shuffle
+        </Button>
+      </div>
+    )
 }
