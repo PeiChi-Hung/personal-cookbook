@@ -6,16 +6,16 @@ export interface dataFromBackend {
   // preparation_time: string
   seasonings: { seasoning: string }[]
   ingredients: { ingredient: string }[]
-  dish_type: string
+  method: string
 }
 
 export const recipeFormSchema = z.object({
   dish_name: z.string().min(2, {
     message: "Dish Name must have at least 1 character",
   }),
-  ingredients: z.array(z.object({ ingredient: z.string() })),
-  seasonings: z.array(z.object({ seasoning: z.string() })),
-  dish_type: z.string(),
+  ingredients: z.array(z.object({ ingredient: z.string() }).required()),
+  seasonings: z.array(z.object({ seasoning: z.string() }).required()),
+  method: z.string(),
   //   method: z.string().min(10),
 })
 

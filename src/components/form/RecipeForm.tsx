@@ -26,6 +26,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useUser } from "@clerk/clerk-react"
+import { Textarea } from "../ui/textarea"
 
 export default function RecipeForm({
   recipe_id,
@@ -46,7 +47,7 @@ export default function RecipeForm({
       dish_name: "",
       ingredients: [{ ingredient: "" }],
       seasonings: [{ seasoning: "" }],
-      dish_type: "",
+      method: "",
       //   method: "",
     },
     values: recipe,
@@ -250,26 +251,11 @@ export default function RecipeForm({
         </div>
         <FormField
           control={form.control}
-          name="dish_type"
+          name="method"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                value={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Main dish">Main dish</SelectItem>
-                  <SelectItem value="Dessert">Dessert</SelectItem>
-                  <SelectItem value="Soup">Soup</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormLabel>Method Steps</FormLabel>
+              <Textarea {...field} />
               <FormMessage />
             </FormItem>
           )}
