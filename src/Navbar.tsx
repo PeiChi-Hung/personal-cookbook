@@ -25,16 +25,6 @@ export default function Navbar() {
                 Main Dish
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Soup
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Dessert
-              </NavigationMenuLink>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
