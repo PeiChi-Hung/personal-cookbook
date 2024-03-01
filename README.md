@@ -17,6 +17,7 @@ A project born out of my personal struggle with managing recipe videos scattered
 * Vite
 * Netlify
 * Shadcn
+* mongoDB
   
 ## Features 
 - **Recipe Management:** Easily add, edit, and delete recipes. 
