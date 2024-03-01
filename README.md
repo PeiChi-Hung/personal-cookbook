@@ -7,7 +7,9 @@
   
 ## Introduction
 A project born out of my personal struggle with managing recipe videos scattered across multiple platforms. The frustration of hunting for a specific dish when cravings strike, coupled with the difficulty of deciding what to eat and the tendency to forget recipes over time, led me to create a solution. With Personal Cookbook, you can effortlessly organize your favourite recipes, eliminating the need to sift through various platforms. The added feature of a shuffle button allows for spontaneous recipe inspiration from your collection. No more watching entire videos to recall ingredients – it's all at your fingertips, making your culinary journey simpler and more enjoyable.
-![螢幕擷取畫面 2024-03-01 150721](https://github.com/PeiChi-Hung/personal-cookbook/assets/67167072/928974dd-83ec-49fd-9e9d-e0dd59f3ffa4)
+
+![螢幕擷取畫面 2024-03-01 151118](https://github.com/PeiChi-Hung/personal-cookbook/assets/67167072/a9bb2bb5-ecfe-4ab8-9d7c-227877583744)
+![螢幕擷取畫面 2024-03-01 151144](https://github.com/PeiChi-Hung/personal-cookbook/assets/67167072/3646154d-77c9-4cc2-a2b5-dd24c28285a3)
 
 
 ### Built With
