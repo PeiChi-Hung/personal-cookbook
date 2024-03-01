@@ -13,7 +13,7 @@ A project born out of my personal struggle with managing recipe videos scattered
 ### Built With
 * [![React][React.js]][React-url]
 * [![Vite][Vite.js]][Vite-url]
-* [![Netlify][Netlify][Netlify-url]
+* [![Netlify][Netlify]][Netlify-url]
 
 ## Features 
 - **Recipe Management:** Easily add, edit, and delete recipes. 
@@ -44,3 +44,10 @@ A project born out of my personal struggle with managing recipe videos scattered
     ```bash
     npm install
     ```
+<!-- MARKDOWN LINKS & IMAGES -->
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[Vite.js]: https://miro.medium.com/v2/resize:fit:1200/1*udvSMrSVGOgD4fxjMJHbOw.jpeg
+[Vite-url]: https://vitejs.dev/
+[Netlify]: https://ayushmanbh.netlify.app/static/media/netlify.c779369f.svg
+[Netlify-url]: https://docs.netlify.com/
