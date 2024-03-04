@@ -23,9 +23,9 @@ export default function Dish() {
 
   if (recipeArray.length == 0)
     return (
-      <p className="font-bold text-xl flex justify-center items-center h-screen">
+      <h1 className="font-bold flex justify-center items-center h-screen">
         Start by adding some recipe you like!
-      </p>
+      </h1>
     )
   return (
     <div className="flex flex-row flex-wrap gap-5">
@@ -54,8 +54,8 @@ export default function Dish() {
             {recipe.method}
           </CardContent>
           <div className="grid grid-cols-2 p-3 space-x-1 w-full">
-            <Update recipe_id={recipe._id} />
-            <Delete recipe_id={recipe._id} />
+            <Update recipe_id={recipe.id} />
+            <Delete recipe_id={recipe.id} />
           </div>
         </Card>
       ))}

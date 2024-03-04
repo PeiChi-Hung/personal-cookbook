@@ -43,6 +43,7 @@ export default function RecipeForm({
       marinade_seasonings: [{ marinade: "" }],
       sauce_seasonings: [{ sauce: "" }],
       method: "",
+      link: "",
     },
     values: recipe,
   })
@@ -315,6 +316,17 @@ export default function RecipeForm({
             <FormItem>
               <FormLabel>Method Steps</FormLabel>
               <Textarea {...field} />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="link"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Link</FormLabel>
+              <Input {...field} />
               <FormMessage />
             </FormItem>
           )}

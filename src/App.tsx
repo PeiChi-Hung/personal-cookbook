@@ -6,7 +6,6 @@ function App() {
   const { isSignedIn, isLoaded } = useUser()
 
   if (!isLoaded) {
-    // Handle loading state however you like
     return null
   }
 
@@ -19,7 +18,11 @@ function App() {
     )
   }
 
-  return <div>Sign in to build your personal cookbook!</div>
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <h1>Sign in to build your personal cookbook!</h1>
+    </div>
+  )
 }
 
 export default App
