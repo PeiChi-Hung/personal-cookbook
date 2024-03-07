@@ -5,6 +5,7 @@ import axios from "axios"
 import Update from "./Update"
 import Delete from "./Delete"
 import { useUser } from "@clerk/clerk-react"
+import Shuffle from "./Shuffle"
 
 export default function Dish() {
   const { user } = useUser()
@@ -28,37 +29,42 @@ export default function Dish() {
       </h1>
     )
   return (
-    <div className="flex flex-row flex-wrap gap-5">
-      {recipeArray.map((recipe, index) => (
-        <Card className="w-[400px]" key={index}>
-          <CardHeader>
-            <CardTitle>{recipe.dish_name}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="font-semibold">Ingredients</p>
-            {recipe.ingredients.map((ing, index) => (
-              <ul key={index}>{ing.ingredient}</ul>
-            ))}
-            <br />
-            <p className="font-semibold">Seasonings</p>
-            {recipe.marinade_seasonings.map((sea, index) => (
-              <ul key={index}>{sea.marinade}</ul>
-            ))}
-            <br />
-            <p className="font-semibold">Category</p>
-            {recipe.sauce_seasonings.map((sea, index) => (
-              <ul key={index}>{sea.sauce}</ul>
-            ))}
-            <br />
-            <p className="font-semibold">Method Steps</p>
-            {recipe.method}
-          </CardContent>
-          <div className="grid grid-cols-2 p-3 space-x-1 w-full">
-            <Update recipe_id={recipe.id} />
-            <Delete recipe_id={recipe.id} />
-          </div>
-        </Card>
-      ))}
+    <div>
+      <div className="flex flex-row flex-wrap gap-5">
+        {recipeArray.map((recipe, index) => (
+          <Card className="w-[400px]" key={index}>
+            <CardHeader>
+              <CardTitle>{recipe.dish_name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="font-semibold">Ingredients</p>
+              {recipe.ingredients.map((ing, index) => (
+                <ul key={index}>{ing.ingredient}</ul>
+              ))}
+              <br />
+              <p className="font-semibold">Seasonings</p>
+              {recipe.marinade_seasonings.map((sea, index) => (
+                <ul key={index}>{sea.marinade}</ul>
+              ))}
+              <br />
+              <p className="font-semibold">Category</p>
+              {recipe.sauce_seasonings.map((sea, index) => (
+                <ul key={index}>{sea.sauce}</ul>
+              ))}
+              <br />
+              <p className="font-semibold">Method Steps</p>
+              {recipe.method}
+            </CardContent>
+            <div className="grid grid-cols-2 p-3 space-x-1 w-full">
+              <Update recipe_id={recipe._id} />
+              <Delete recipe_id={recipe._id} />
+            </div>
+          </Card>
+        ))}
+      </div>
+      <div>
+        <Shuffle totalRecipe={recipeArray.length} />
+      </div>
     </div>
   )
 }

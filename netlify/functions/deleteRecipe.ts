@@ -5,6 +5,7 @@ export default async (req: Request, context: Context) => {
   const uri = process.env.DATABASE_URL
   const url = new URL(req.url)
   const searchParams = url.searchParams.get("_id") as string
+  console.log(searchParams)
   const user_id = url.pathname.split("/")[3]
 
   if (uri) {

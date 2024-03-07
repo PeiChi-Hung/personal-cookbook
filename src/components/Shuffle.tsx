@@ -6,7 +6,7 @@ import { dataFromBackend } from "@/types/RecipeData"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUser } from "@clerk/clerk-react"
 
-export default function Shuffle() {
+export default function Shuffle({ totalRecipe }: { totalRecipe: number }) {
   const [randomRecipe, setRandomRecipe] = useState([])
   const { user } = useUser()
   const user_id = user?.id as string
@@ -21,6 +21,8 @@ export default function Shuffle() {
     setRandomRecipe(data)
   }
 
+  // if there are more than 2 recipes in the dataset and user has tried the shuffle function
+  // and would like to shuffle again
   if (randomRecipe.length > 0)
     return (
       <div className="flex flex-col items-center justify-center pt-10">
@@ -32,14 +34,15 @@ export default function Shuffle() {
               </CardHeader>
             </Card>
           ))}
-          <Button className="px-10 mt-5" onClick={handleShuffle}>
-            Shuffle Again
-          </Button>
         </div>
+        <Button className="px-10 mt-5" onClick={handleShuffle}>
+          Shuffle Again
+        </Button>
       </div>
     )
 
-  if (randomRecipe.length > 2)
+  // if there are more than 2 recipes in the dataset and user has never shuffle
+  if (totalRecipe > 2 && randomRecipe.length == 0)
     return (
       <div className="flex flex-col items-center justify-center pt-10">
         <p className="text-xl">

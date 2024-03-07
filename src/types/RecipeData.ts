@@ -1,6 +1,6 @@
 import { z } from "zod"
 export interface dataFromBackend {
-  id: string
+  _id: string
   category: string
   dish_name: string
   marinade_seasonings: { marinade: string }[]

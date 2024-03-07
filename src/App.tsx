@@ -1,6 +1,5 @@
 import { useUser } from "@clerk/clerk-react"
 import Dish from "./components/Dish"
-import Shuffle from "./components/Shuffle"
 
 function App() {
   const { isSignedIn, isLoaded } = useUser()
@@ -13,7 +12,6 @@ function App() {
     return (
       <div>
         <Dish />
-        <Shuffle />
       </div>
     )
   }
